@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Playwright Automation Suite">
+    <listeners>
+        <listener class-name="listeners.AllureListener"/>
+    </listeners>
+    <test name="Login Page Test">
+        <classes>
+            <class name="tests.LoginPageTest">
+                <methods>
+                    <include name="validatePageTitleOnSuccessfulLogin"/>
+                    <include name="validateInvalidPageTitleOnSuccessfulLogin"/>
+                </methods>
+            </class>
+            <class name="tests.HomePageTest">
+                <methods>
+                    <include name="verifyIsLogoutButtonVisible"/>
+                    <include name="verifyLoginPageURLAfterRedirection"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
