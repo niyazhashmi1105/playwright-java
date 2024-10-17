@@ -36,9 +36,9 @@ public class PlaywrightFactory {
                 throw new IllegalArgumentException("Unsupported browser: " + browserType);
         }
         page = browser.newPage();
-        int width=1710; //Macbook only
-        int height = 993; //Macbook only
-        page.setViewportSize(width,height);
+//        int width=1710; //Macbook only
+//        int height = 993; //Macbook only
+//        page.setViewportSize(width,height);
         page.navigate(ConfigReader.getProperty("base.url"));
         return page;
     }
