@@ -4,7 +4,6 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import io.qameta.allure.Step;
 
 public class PlaywrightFactory {
 
@@ -25,13 +24,13 @@ public class PlaywrightFactory {
         switch(browserType.toLowerCase()){
 
             case "chrome":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
                 break;
             case "firefox":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(true));
                 break;
             case "webkit":
-                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(true));
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported browser: " + browserType);
