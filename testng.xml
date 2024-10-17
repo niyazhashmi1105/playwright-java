@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="listeners.AllureListener"/>
     </listeners>
-    <test name="Login Page Test">
+    <test name="Playwright Regression Test">
         <classes>
             <class name="tests.LoginPageTest">
                 <methods>

@@ -44,6 +44,7 @@ public class PlaywrightFactory {
     }
 
     public void tearDown(){
+
         if (browser != null) {
             browser.close();
         }

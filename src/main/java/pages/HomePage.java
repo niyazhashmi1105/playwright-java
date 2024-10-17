@@ -4,7 +4,7 @@ import utils.TestUtil;
 
 public class HomePage {
 
-    private TestUtil testUtil;
+    private final TestUtil testUtil;
 
     public HomePage(TestUtil testUtil){
         this.testUtil = testUtil;
@@ -16,6 +16,7 @@ public class HomePage {
     }
 
     public void clickLogoutButton(){
+        testUtil.waitForElementVisible("home.btnlogout");
         testUtil.click("home.btnlogout");
     }
 }

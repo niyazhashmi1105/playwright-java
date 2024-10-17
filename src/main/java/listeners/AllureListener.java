@@ -65,10 +65,10 @@ public class AllureListener implements ITestListener {
     public void onFinish(ITestContext context) {
         // Called when the test suite finishes
         attachLogs("All tests finished:");
-        if (getPage() != null) {
-            getPage().close();
-            threadLocalPage.remove();
-        }
+//        if (getPage() != null) {
+//            getPage().close();
+//            threadLocalPage.remove();
+//        }
     }
 
     @Attachment(value = "Page screenshot", type = "image/png")

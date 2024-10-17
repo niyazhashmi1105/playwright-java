@@ -4,7 +4,7 @@ import utils.TestUtil;
 
 public class LoginPage {
 
-    private TestUtil testUtil;
+    private final TestUtil testUtil;
 
     public LoginPage(TestUtil testUtil){
         this.testUtil = testUtil;
