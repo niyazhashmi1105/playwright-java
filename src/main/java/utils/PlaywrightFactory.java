@@ -31,7 +31,7 @@ public class PlaywrightFactory {
                 case "webkit":
                     browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(Boolean.parseBoolean(ConfigReader.getProperty("headless"))).setSlowMo(Double.parseDouble(ConfigReader.getProperty("slow.motion"))));
                     break;
-                case "edge":
+                case "msedge":
                     browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(Boolean.parseBoolean(ConfigReader.getProperty("headless"))).setSlowMo(Double.parseDouble(ConfigReader.getProperty("slow.motion"))));
                     break;
                 default:
@@ -39,9 +39,6 @@ public class PlaywrightFactory {
             }
 
         page = browser.newPage();
-//        int width=1710; //Macbook only
-//        int height = 993; //Macbook only
-//        page.setViewportSize(width,height);
         page.navigate(ConfigReader.getProperty("base.url"));
         return page;
     }

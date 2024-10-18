@@ -20,6 +20,9 @@ public class ExtentManager {
         // System information to be included in the report
         extent.setSystemInfo("Environment", "QA");
         extent.setSystemInfo("Tester", "MD. Niyaz Hashmi");
+        extent.setSystemInfo("OS Name",System.getProperty("os.name"));
+        extent.setSystemInfo("OS Version",System.getProperty("os.version"));
+        extent.setSystemInfo("Browser",ConfigReader.getProperty("browser"));
         return extent;
     }
 
