@@ -35,7 +35,7 @@ public class ReportListener implements ITestListener{
     public void onTestSuccess(ITestResult result) {
         System.out.println(result.getName() + " test passed.");
         attachLogs("Test passed: "+result.getMethod().getMethodName());
-        ExtentTestManager.getTest().log(Status.PASS, result.getMethod().getMethodName()+ "test execution passed.");
+        ExtentTestManager.getTest().log(Status.PASS, result.getMethod().getMethodName()+ " test execution passed.");
     }
 
     @Override
