@@ -1,17 +1,15 @@
 package tests;
 
 import base.BaseTest;
-import listeners.AllureListener;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import utils.TestUtil;
 
-@Listeners(AllureListener.class)
+//@Listeners(ReportListener.class)
 public class LoginPageTest extends BaseTest {
 
     @Test
-    public void validatePageTitleOnSuccessfulLogin(){
+    public void verifyPageTitleOnSuccessfulLogin(){
         TestUtil testUtil = new TestUtil(page);
         LoginPage loginPage = new LoginPage(testUtil);
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
@@ -20,12 +18,12 @@ public class LoginPageTest extends BaseTest {
     }
 
     @Test
-    public void validateInvalidPageTitleOnSuccessfulLogin(){
+    public void verifyInvalidPageTitleOnSuccessfulLogin(){
         TestUtil testUtil = new TestUtil(page);
         LoginPage loginPage = new LoginPage(testUtil);
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
         loginPage.clickLogin();
-        //testUtil.assertContainsPageTitle("internet");
+        testUtil.assertContainsPageTitle("internet");
     }
 
 }

@@ -1,15 +1,13 @@
 package tests;
 
 import base.BaseTest;
-import listeners.AllureListener;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.TestUtil;
 
-@Listeners(AllureListener.class)
+//@Listeners(ReportListener.class)
 public class HomePageTest  extends BaseTest {
 
     @Test

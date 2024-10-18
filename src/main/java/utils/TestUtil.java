@@ -1,9 +1,13 @@
 package utils;
 
+import com.aventstack.extentreports.Status;
 import com.microsoft.playwright.Dialog;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.ScreenshotType;
 import io.qameta.allure.Allure;
 import org.testng.Assert;
+
+import java.util.Base64;
 
 public class TestUtil {
 
@@ -44,6 +48,7 @@ public class TestUtil {
         String  selector = ConfigReader.getLocator(locatorKey);
         page.click(selector);
         Allure.step("Clicked on element: " + locatorKey);
+        ExtentTestManager.getTest().log(Status.INFO,"Clicked on element: " + locatorKey);
     }
 
     // Method to type text into a field
@@ -51,6 +56,7 @@ public class TestUtil {
         String selector = ConfigReader.getLocator(locatorKey);
         page.fill(selector,value);
         Allure.step("Entered value '" + value + "' into field: " + locatorKey);
+        ExtentTestManager.getTest().log(Status.INFO,"Entered value '" + value + "' into field: " + locatorKey);
     }
 
     // Method to wait for an element to be visible
@@ -58,6 +64,7 @@ public class TestUtil {
         String selector = ConfigReader.getLocator(locatorKey);
         page.waitForSelector(selector);
         Allure.step("Waited for element to be visible: " + locatorKey);
+        ExtentTestManager.getTest().log(Status.INFO,"Waited for element to be visible: " + locatorKey);
     }
 
     // Method to check an element to be visible
@@ -65,11 +72,18 @@ public class TestUtil {
         String selector = ConfigReader.getLocator(locatorKey);
         boolean isVisible = page.isVisible(selector);
         Allure.step("Is element to be visible: " + locatorKey);
+        ExtentTestManager.getTest().log(Status.INFO,"Is element to be visible: " + locatorKey);
         return isVisible;
     }
 
     public String getPageURL(){
+        ExtentTestManager.getTest().log(Status.INFO,"Page URL: " + page.url());
         return page.url();
+    }
+
+    public String captureScreenshotAsBase64() {
+        byte[] screenshotBytes = page.screenshot(new Page.ScreenshotOptions().setType(ScreenshotType.PNG));
+        return Base64.getEncoder().encodeToString(screenshotBytes);
     }
 
 }
