@@ -1,3 +1,5 @@
+[![Playwright Java Tests](https://github.com/niyazhashmi1105/playwright-java/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/niyazhashmi1105/playwright-java/actions/workflows/ci.yml)
+
 Playwright Java Project
 This project is an automation testing framework built using Playwright in Java. It includes Maven for dependency management and TestNG for running tests. The structure supports Docker and CI/CD pipelines for continuous integration and delivery.
 
