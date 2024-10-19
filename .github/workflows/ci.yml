@@ -26,6 +26,9 @@ jobs:
           name: extent-report
           path: reports/index.html
           retention-days: 1
+      - name: Parse Extent Report
+        run: |
+             mvn exec:java -Dexec.mainClass="utils.ReportParser"
       - name: Send email with HTML report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -34,7 +37,7 @@ jobs:
             username: ${{ secrets.EMAIL_USERNAME }}
             password: ${{ secrets.EMAIL_PASSWORD }}
             subject: "Test Results for Build #${{ github.run_number }} - ${{ github.repository }}"
-      #      html_body: file://reports/index.html
+            body: "Test case results:\n$(cat test-results-summary.txt)"
             to: niyazhashmi161921@gmail.com
             from: niyazhashmi161921@gmail.com
             attachments: reports/index.html

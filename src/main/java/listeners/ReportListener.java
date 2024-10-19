@@ -75,7 +75,6 @@ public class ReportListener implements ITestListener{
         attachLogs("All tests finished:");
         ExtentTestManager.endTest();
 }
-
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] captureScreenshot(String screenshotName) {
         try {

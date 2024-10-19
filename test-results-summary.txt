@@ -1,0 +1,4 @@
+Test Case: verifyPageTitleOnSuccessfulLogin - Status: Pass
+Test Case: verifyIsLogoutButtonVisible - Status: Pass
+Test Case: verifyInvalidPageTitleOnSuccessfulLogin - Status: Pass
+Test Case: verifyLoginPageURLAfterRedirection - Status: Pass
