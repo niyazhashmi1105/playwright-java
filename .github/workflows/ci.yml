@@ -29,6 +29,11 @@ jobs:
       - name: Parse Extent Report
         run: |
              mvn exec:java -Dexec.mainClass="utils.ReportParser"
+      - name: Read test results
+        id: read_results
+        run: |
+            RESULTS=$(cat test-results-summary.txt)
+            echo "::set-output name=results::$RESULTS"
       - name: Send email with HTML report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -37,7 +42,7 @@ jobs:
             username: ${{ secrets.EMAIL_USERNAME }}
             password: ${{ secrets.EMAIL_PASSWORD }}
             subject: "Test Results for Build #${{ github.run_number }} - ${{ github.repository }}"
-            body: "Test case results:\n$(cat test-results-summary.txt)"
+            body: ${{ steps.read_results.outputs.results }}
             to: niyazhashmi161921@gmail.com
             from: niyazhashmi161921@gmail.com
             attachments: reports/index.html
