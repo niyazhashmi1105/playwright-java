@@ -1,0 +1,61 @@
+# Azure Pipeline for Playwright Java Maven Project
+
+trigger:
+  branches:
+    include:
+      - main  # Trigger the pipeline when code is pushed to 'main' branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # Using Ubuntu image
+
+variables:
+  # JDK version (set to JDK 17 or above)
+  JAVA_HOME: /usr/lib/jvm/adoptopenjdk-17-hotspot-amd64
+  MAVEN_OPTS: "-Xms256m -Xmx512m"
+
+jobs:
+- job: BuildAndTest
+  displayName: 'Build and Test with Maven'
+  steps:
+
+    # Step 1: Check out the code
+    - checkout: self
+
+    # Step 2: Set up JDK 17 environment
+    - task: [email protected]
+      inputs:
+        versionSpec: '17.x'
+        jdkArchitectureOption: 'x64'
+      displayName: 'Set up JDK 17'
+
+    # Step 3: Install Maven dependencies and run tests
+    - script: |
+        mvn clean install
+      displayName: 'Build and Run Tests'
+
+    # Step 4: Publish the test reports
+    - task: [email protected]
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/reports'
+        artifactName: 'TestReports'
+      displayName: 'Publish Test Artifacts'
+
+    # Step 5: Archive the index.html (test report)
+    - task: [email protected]
+      inputs:
+        root: 'reports'
+        includeRootFolder: false
+      displayName: 'Archive Test Report (index.html)'
+
+    # Step 6: Send email notification with test report as an attachment
+    - task: [email protected]
+      inputs:
+        smtpServer: 'smtp.gmail.com'     # Replace with your SMTP server
+        to: 'niyazhashmi161921@gmail.com'         # Recipient's email address
+        subject: 'Playwright Java Test Results - $(Build.BuildId) from Azure Devops Pipeline'
+        body: 'The test execution has been completed. Find the attached test report.'
+        attachments: '$(System.DefaultWorkingDirectory)/reports/index.html'
+      displayName: 'Send Email with Test Report'
+
+  condition: succeededOrFailed() # Send notification even if tests fail
+
