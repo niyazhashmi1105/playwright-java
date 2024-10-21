@@ -11,12 +11,7 @@ public class HomePage {
 
     }
 
-    public boolean isElementVisible(){
-        return testUtil.isElementVisible("home.btnlogout");
-    }
-
     public void clickLogoutButton(){
-        testUtil.waitForElementVisible("home.btnlogout");
-        testUtil.click("home.btnlogout");
+        testUtil.click("home.btnLogout");
     }
 }

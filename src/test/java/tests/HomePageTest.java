@@ -1,35 +1,31 @@
 package tests;
 
 import base.BaseTest;
-import org.testng.Assert;
+import listeners.ReportListener;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.LoginPage;
-import utils.TestUtil;
+import utils.ConfigReader;
 
-//@Listeners(ReportListener.class)
+@Listeners(ReportListener.class)
 public class HomePageTest  extends BaseTest {
 
     @Test
     public void verifyIsLogoutButtonVisible(){
-        TestUtil testUtil = new TestUtil(page);
-        LoginPage loginPage = new LoginPage(testUtil);
-        HomePage homePage = new HomePage(testUtil);
+
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
+        assertUtil.assertVisible(ConfigReader.getLocator("login.btnLogin"));
         loginPage.clickLogin();
-        Assert.assertTrue(homePage.isElementVisible());
+        testUtil.waitForElementVisible(ConfigReader.getLocator("home.btnLogout"));
+        assertUtil.assertVisible(ConfigReader.getLocator("home.btnLogout"));
     }
 
     @Test
     public void verifyLoginPageURLAfterRedirection(){
-        TestUtil testUtil = new TestUtil(page);
-        LoginPage loginPage = new LoginPage(testUtil);
-        HomePage homePage = new HomePage(testUtil);
+
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
         loginPage.clickLogin();
         homePage.clickLogoutButton();
-        String pageURL = testUtil.getPageURL();
-        Assert.assertEquals(pageURL, "https://the-internet.herokuapp.com/login","Page URL is incorrect!");
+        assertUtil.assertUrlContains(page,"https://the-internet.herokuapp.com/login");
     }
 
 }

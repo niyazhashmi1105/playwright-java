@@ -1,29 +1,34 @@
 package tests;
 
 import base.BaseTest;
+import listeners.ReportListener;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.LoginPage;
-import utils.TestUtil;
+import utils.ConfigReader;
 
-//@Listeners(ReportListener.class)
+@Listeners(ReportListener.class)
 public class LoginPageTest extends BaseTest {
+
 
     @Test
     public void verifyPageTitleOnSuccessfulLogin(){
-        TestUtil testUtil = new TestUtil(page);
-        LoginPage loginPage = new LoginPage(testUtil);
+        assertUtil.assertVisible(ConfigReader.getLocator("login.username"));
+        assertUtil.assertVisible(ConfigReader.getLocator("login.password"));
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
+        assertUtil.assertEnabled(ConfigReader.getLocator("login.btnLogin"));
         loginPage.clickLogin();
-        testUtil.assertPageTitle("The Internet");
+        assertUtil.assertTextContains(ConfigReader.getLocator("home.loggedInText"),"You logged into a secure area!");
+
     }
 
     @Test
     public void verifyInvalidPageTitleOnSuccessfulLogin(){
-        TestUtil testUtil = new TestUtil(page);
-        LoginPage loginPage = new LoginPage(testUtil);
+
+        assertUtil.assertEditable(ConfigReader.getLocator("login.username"));
+        assertUtil.assertEditable(ConfigReader.getLocator("login.password"));
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
         loginPage.clickLogin();
-        //testUtil.assertContainsPageTitle("internet");
+        assertUtil.assertPageTitleContains(page,"Internet");
     }
 
 }

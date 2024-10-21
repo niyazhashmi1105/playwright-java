@@ -8,7 +8,6 @@ public class LoginPage {
 
     public LoginPage(TestUtil testUtil){
         this.testUtil = testUtil;
-
     }
 
     public void enterCredentials(String username, String password){
@@ -17,6 +16,6 @@ public class LoginPage {
     }
 
     public void clickLogin(){
-        testUtil.click("login.btnlogin");
+        testUtil.click("login.btnLogin");
     }
 }

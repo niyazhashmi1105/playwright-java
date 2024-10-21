@@ -1,17 +1,18 @@
-package utils;
+package factory;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import utils.ConfigReader;
 
-public class PlaywrightFactory {
+public class PlaywrightFactory_traditional {
 
     Playwright playwright;
     Browser browser;
     Page page;
 
-    public PlaywrightFactory(){
+    public PlaywrightFactory_traditional(){
         new ConfigReader();
     }
 
