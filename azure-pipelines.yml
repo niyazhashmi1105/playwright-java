@@ -11,6 +11,7 @@ steps:
     versionSpec: '17'
     jdkArchitectureOption: 'x64'
     jdkSourceOption: AzureStorage
+    azureCommonVirtualFile: '$(Build.SourcesDirectory)/target/playwright-java.jar'
 
 - script: mvn -B install -D skipTests --no-transfer-progress
   displayName: 'Build and install'
