@@ -3,7 +3,7 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-container: mcr.microsoft.com/playwright/java:v1.47.0-noble
+container: mcr.microsoft.com/playwright/java:v1.48.0-noble
 
 steps:
 - task: JavaToolInstaller@0
