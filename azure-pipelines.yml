@@ -13,6 +13,7 @@ steps:
     jdkSourceOption: AzureStorage
     azureCommonVirtualFile: '$(Build.SourcesDirectory)/target/playwright-java.jar'
     azureResourceManagerEndpoint: 'my-azure-service-connection'
+    azureStorageAccountName: 'mystorageaccount1105'
     
 - script: mvn -B install -D skipTests --no-transfer-progress
   displayName: 'Build and install'
