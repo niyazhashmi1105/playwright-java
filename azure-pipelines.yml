@@ -15,6 +15,7 @@ steps:
     azureResourceManagerEndpoint: 'my-azure-service-connection'
     azureStorageAccountName: 'mystorageaccount1105'
     azureContainerName: 'mycontainer'
+    jdkFile: 'jdk-17_linux-x64_bin.tar.gz'
     
 - script: mvn -B install -D skipTests --no-transfer-progress
   displayName: 'Build and install'
