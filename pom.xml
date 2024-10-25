@@ -107,9 +107,16 @@
                         <execution>
                             <goals>
                                 <goal>java</goal>
+                                <goal>exec</goal>
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <executable>mvn</executable>
+                        <arguments>
+                            <argument>playwright:install</argument>
+                        </arguments>
+                    </configuration>
                 </plugin>
         </plugins>
     </build>
