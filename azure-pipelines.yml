@@ -3,15 +3,20 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-container: mcr.microsoft.com/playwright/java:v1.47.0-noble
+container: mcr.microsoft.com/playwright/java:v1.48.0-noble
 
 steps:
 - task: JavaToolInstaller@0
   inputs:
     versionSpec: '17'
     jdkArchitectureOption: 'x64'
-    jdkSourceOption: AzureStorage
-
+    jdkSourceOption: PreInstalled
+    # azureCommonVirtualFile: '$(Build.SourcesDirectory)/target/playwright-java.jar'
+    # azureResourceManagerEndpoint: 'my-azure-service-connection'
+    # azureStorageAccountName: 'mystorageaccount1105'
+    # azureContainerName: 'mycontainer'
+    # jdkFile: 'jdk-17_linux-x64_bin.tar.gz'
+    
 - script: mvn -B install -D skipTests --no-transfer-progress
   displayName: 'Build and install'
 - script: mvn clean test
