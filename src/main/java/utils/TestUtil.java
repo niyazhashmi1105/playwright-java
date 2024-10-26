@@ -8,22 +8,40 @@ import io.qameta.allure.Allure;
 
 import java.util.Base64;
 
+/**
+ * The {@code TestUtil} class provides utility methods for interacting
+ * with web page elements using Playwright's {@link Page} class.
+ * It includes methods for handling alerts, clicking elements,
+ * typing text, waiting for elements, and capturing screenshots.
+ */
 public class TestUtil {
 
     private final Page page;
 
+    /**
+     * Constructs a {@code TestUtil} instance with the specified {@code Page}.
+     *
+     * @param page the {@link Page} object used for interacting with web elements.
+     */
     public TestUtil(Page page) {
         this.page = page;
     }
 
 
-    // Handle alerts (if needed)
+    /**
+     * Handles any alerts present on the page by accepting them.
+     * This method invokes the accept action on the dialog.
+     */
     public void handleAlert() {
         page.onDialog(Dialog::accept);
         Allure.step("Handled alert by accepting");
     }
 
-    // Method to click an element
+    /**
+     * Clicks on an element specified by the locator key.
+     *
+     * @param locatorKey the key to retrieve the locator from the configuration.
+     */
     public void click(String locatorKey){
         String  selector = ConfigReader.getLocator(locatorKey);
         page.click(selector);
@@ -31,7 +49,12 @@ public class TestUtil {
         ExtentTestManager.getTest().log(Status.INFO,"Clicked on element: " + locatorKey);
     }
 
-    // Method to type text into a field
+    /**
+     * Types the specified value into an input field identified by the locator key.
+     *
+     * @param locatorKey the key to retrieve the locator from the configuration.
+     * @param value      the value to be typed into the input field.
+     */
     public void type(String locatorKey, String value){
         String selector = ConfigReader.getLocator(locatorKey);
         page.fill(selector,value);
@@ -39,7 +62,11 @@ public class TestUtil {
         ExtentTestManager.getTest().log(Status.INFO,"Entered value '" + value + "' into field: " + locatorKey);
     }
 
-    // Method to wait for an element to be visible
+    /**
+     * Waits for an element specified by the locator key to become visible.
+     *
+     * @param locatorKey the key to retrieve the locator from the configuration.
+     */
     public void waitForElementVisible(String locatorKey) {
         //String selector = ConfigReader.getLocator(locatorKey);
         page.waitForSelector(locatorKey);
@@ -47,6 +74,11 @@ public class TestUtil {
         ExtentTestManager.getTest().log(Status.INFO,"Waited for element to be visible: " + locatorKey);
     }
 
+    /**
+     * Captures a screenshot of the current page and returns it as a Base64-encoded string.
+     *
+     * @return a Base64-encoded string representation of the screenshot in PNG format.
+     */
     public String captureScreenshotAsBase64() {
         byte[] screenshotBytes = page.screenshot(new Page.ScreenshotOptions().setType(ScreenshotType.PNG));
         return Base64.getEncoder().encodeToString(screenshotBytes);

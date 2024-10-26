@@ -19,6 +19,26 @@ public class PlaywrightFactory {
         new ConfigReader();
     }
 
+    /**
+     * Initializes the browser based on the specified configuration properties and returns a {@link Page} object.
+     *
+     * This method reads the browser configuration from a properties file using {@link ConfigReader}.
+     * It supports launching the following browsers:
+     * <ul>
+     *     <li>Chrome</li>
+     *     <li>Firefox</li>
+     *     <li>Webkit (Safari)</li>
+     *     <li>Microsoft Edge</li>
+     * </ul>
+     *
+     * Based on the provided configuration, it launches the browser in either headless or non-headless mode
+     * and applies an optional slow-motion delay. It then navigates to the base URL and returns the corresponding {@link Page} object.
+     *
+     * @return A {@link Page} object that can be used to interact with the web page.
+     *
+     * @throws IllegalArgumentException if the provided browser type is not supported.
+     */
+
     public Page initBrowser() {
         String browserType = ConfigReader.getProperty("browser").toLowerCase();
         boolean isHeadless = Boolean.parseBoolean(ConfigReader.getProperty("headless"));
@@ -44,6 +64,19 @@ public class PlaywrightFactory {
         return page;
     }
 
+    /**
+     * Closes the browser and Playwright instance to clean up resources after the tests are executed.
+     *
+     * This method ensures that both the {@link Browser} and {@link Playwright} instances are properly closed if they are initialized.
+     * It performs the following steps:
+     * <ul>
+     *     <li>If the {@link Browser} instance is not null, it closes the browser.</li>
+     *     <li>If the {@link Playwright} instance is not null, it closes the Playwright context.</li>
+     * </ul>
+     *
+     * This method should be called after tests are executed to free up system resources and avoid memory leaks.
+     */
+    
     public void tearDown(){
 
         if (browser != null) {
@@ -53,6 +86,4 @@ public class PlaywrightFactory {
             playwright.close();
         }
     }
-
-
 }
