@@ -23,14 +23,14 @@ jobs:
       - name: Upload Extent Report
         uses: actions/upload-artifact@v4
         with:
-          if: always
+          if: always()
           name: html-report
           path: reports/index.html
           retention-days: 1
       - name: Send email with HTML report
         uses: dawidd6/action-send-mail@v3
         with:
-            if: always
+            if: always()
             server_address: smtp.gmail.com
             server_port: 465
             username: ${{ secrets.EMAIL_USERNAME }}
@@ -43,7 +43,7 @@ jobs:
             secure: true
       - name: Upload results to S3
         with:
-          if: always
+          if: always()
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
