@@ -28,7 +28,7 @@ public class LoginPageTest extends BaseTest {
         assertUtil.assertEditable(ConfigReader.getLocator("login.password"));
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
         loginPage.clickLogin();
-        assertUtil.assertPageTitleContains(page,"internet");
+        assertUtil.assertPageTitleContains(page,"Internet");
     }
 
 }
