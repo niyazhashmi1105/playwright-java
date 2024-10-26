@@ -26,9 +26,6 @@ jobs:
           name: extent-report
           path: reports/index.html
           retention-days: 1
-      - name: Parse Extent Report
-        run: |
-             mvn exec:java -Dexec.mainClass="utils.ReportParser"
       - name: Read test results
         id: read_results
         run: |
