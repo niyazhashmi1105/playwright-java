@@ -99,24 +99,6 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>${maven.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>exec</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <executable>mvn</executable>
-                        <arguments>
-                            <argument>playwright:install</argument>
-                        </arguments>
-                    </configuration>
-                </plugin>
         </plugins>
     </build>
 </project>
