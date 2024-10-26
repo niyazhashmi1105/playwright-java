@@ -41,9 +41,7 @@ jobs:
             from: niyazhashmi161921@gmail.com
             attachments: reports/index.html
             secure: true
-      - name: Upload results to S3
-        with:
-          if: always()
+      - name: Upload HTML Report to AWS S3 and trigger Email through Lambda channel
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
