@@ -7,12 +7,17 @@ import com.aventstack.extentreports.model.service.util.ExceptionUtil;
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.testng.IExecutionListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.ExtentTestManager;
+import utils.ReportParser;
 
-public class ReportListener implements ITestListener{
+import java.awt.*;
+import java.io.File;
+
+public class ReportListener implements ITestListener, IExecutionListener {
 
     private final static ThreadLocal<Page> tlPage = new ThreadLocal<>();
 
@@ -24,9 +29,23 @@ public class ReportListener implements ITestListener{
     }
 
     @Override
+    public void onExecutionStart(){
+        System.out.println("Test Automation Suites starting...");
+    }
+
+    @Override
+    public void onExecutionFinish(){
+
+        ReportParser.parseHTMLReport(System.getProperty("user.dir")+"/reports/index.html");
+        System.out.println("Test Automation Suites ended...");
+    }
+
+
+    @Override
     public void onTestStart(ITestResult result) {
+
         System.out.println(result.getMethod().getMethodName() + " test starting.");
-        ExtentTestManager.startTest(result.getMethod().getMethodName());
+        ExtentTestManager.startTest(result.getTestClass().getName(),result.getMethod().getMethodName());
         attachLogs("Test started: "+result.getMethod().getMethodName());
         ExtentTestManager.getTest().log(Status.INFO, result.getMethod().getMethodName()+" test execution started");
     }
@@ -74,6 +93,8 @@ public class ReportListener implements ITestListener{
         // Called when the test suite finishes
         attachLogs("All tests finished:");
         ExtentTestManager.endTest();
+        openExtentReport("reports/index.html");
+        openExtentReport("reports/summaryReport.html");
 }
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] captureScreenshot(String screenshotName) {
@@ -93,5 +114,18 @@ public class ReportListener implements ITestListener{
     @Step("{0}")
     public String attachLogs(String message) {
         return message;  // Log the message to Allure report
+    }
+
+    private static void openExtentReport(String filePath) {
+        try {
+            File reportFile = new File(filePath);
+            if (reportFile.exists()) {
+                Desktop.getDesktop().open(reportFile); // Opens the report with default browser
+            } else {
+                System.out.println("Report file does not exist.");
+            }
+        } catch (Exception e) {
+            System.err.println("Unable to open report: " + e.getMessage());
+        }
     }
 }

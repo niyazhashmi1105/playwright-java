@@ -44,9 +44,7 @@ jobs:
             username: ${{ secrets.EMAIL_USERNAME }}
             password: ${{ secrets.EMAIL_PASSWORD }}
             subject: "Test Results for Build #${{ github.run_number }} - ${{ github.repository }}"
-            body: |
-              Test case results:
-              ${{ env.RESULTS }}
+            html_body: file://reports/summaryReport.html
             to: niyazhashmi161921@gmail.com
             from: niyazhashmi161921@gmail.com
             attachments: reports/index.html

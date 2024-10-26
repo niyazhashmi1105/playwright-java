@@ -4,18 +4,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ReportParser {
+public class temp {
 
-    public static void parseHTMLReport(String filePath) {
+    public static void parseHTMLReporttemp(String filePath) {
         StringBuilder builder = new StringBuilder();
-
-        // Table header
-        builder.append("<h1>Test Results Summary</h1>");
-        builder.append("<br>");
         builder.append("<table border='1'><tr><th>Test Case Name</th><th>Test Case Status</th></tr>");
 
         int totalTestCasesCount = 0;
@@ -30,7 +27,6 @@ public class ReportParser {
             // Count total test cases
             totalTestCasesCount = testCases.size();
 
-            // Using try-with-resources to ensure writer is closed automatically
             try (FileWriter writer = new FileWriter("reports/test-results-summary.txt")) {
                 // Loop through each test case
                 for (Element testCase : testCases) {
@@ -56,7 +52,6 @@ public class ReportParser {
                     for (Element step : steps) {
                         String stepStatus = step.select("td:nth-child(1)").text();
                         String stepDetails = step.select("td:nth-child(3)").text();
-                        // You might want to process or store step details here
                     }
                 }
             }
@@ -67,11 +62,10 @@ public class ReportParser {
         // Close the table
         builder.append("</table>");
 
-        // Update summary with actual counts at the top
-        String summary = "<br><strong>Total Tests:</strong> " + totalTestCasesCount +
-                ", <strong>Passed Tests:</strong> " + passedTestCasesCount +
-                ", <strong>Failed Tests:</strong> " + failedTestCasesCount;
-        builder.insert(builder.indexOf("<br>") + 4, summary);
+        // Append test case count summary at the end of the report
+        builder.append("<br><strong>Total Tests:</strong> ").append(totalTestCasesCount);
+        builder.append(", <strong>Passed Tests:</strong> ").append(passedTestCasesCount);
+        builder.append(", <strong>Failed Tests:</strong> ").append(failedTestCasesCount);
 
         // Write the summary report
         try {
@@ -80,6 +74,7 @@ public class ReportParser {
             System.err.println("Unable to write summary report: " + e.getMessage());
         }
     }
+
     private static void writeTestResults(String summaryReportDetails) throws IOException {
 
         try (FileWriter writer = new FileWriter("reports/summaryReport.html")) {

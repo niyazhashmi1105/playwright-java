@@ -10,7 +10,7 @@ import utils.ConfigReader;
 public class LoginPageTest extends BaseTest {
 
 
-    @Test
+    @Test(priority= 1)
     public void verifyPageTitleOnSuccessfulLogin(){
         assertUtil.assertVisible(ConfigReader.getLocator("login.username"));
         assertUtil.assertVisible(ConfigReader.getLocator("login.password"));
@@ -21,14 +21,14 @@ public class LoginPageTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(priority= 2)
     public void verifyInvalidPageTitleOnSuccessfulLogin(){
 
         assertUtil.assertEditable(ConfigReader.getLocator("login.username"));
         assertUtil.assertEditable(ConfigReader.getLocator("login.password"));
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
         loginPage.clickLogin();
-        assertUtil.assertPageTitleContains(page,"Internet");
+        assertUtil.assertPageTitleContains(page,"internet");
     }
 
 }

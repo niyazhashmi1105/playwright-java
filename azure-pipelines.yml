@@ -1,23 +1,54 @@
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
-container: mcr.microsoft.com/playwright/java:v1.48.0-noble
-
 steps:
-- task: JavaToolInstaller@0
-  inputs:
-    versionSpec: '17'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: PreInstalled
-    # azureCommonVirtualFile: '$(Build.SourcesDirectory)/target/playwright-java.jar'
-    # azureResourceManagerEndpoint: 'my-azure-service-connection'
-    # azureStorageAccountName: 'mystorageaccount1105'
-    # azureContainerName: 'mycontainer'
-    # jdkFile: 'jdk-17_linux-x64_bin.tar.gz'
-    
-- script: mvn -B install -D skipTests --no-transfer-progress
-  displayName: 'Build and install'
-- script: mvn clean test
-  displayName: 'Run tests'
+  - task: NodeTaskRunnerInstaller@0
+    inputs:
+      nodeVersion: '16'
+  - task: Maven@4
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'compile'
+      publishJUnitResults: false
+      #testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.17'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
+  - script: |
+      npx playwright install
+    displayName: 'Install Playwright Browsers'
+  - script: |
+      mvn clean test
+    displayName: 'Run Playwright Tests'
+  - task: PublishHtmlReport@1
+    displayName: 'Generate HTML Report'
+    inputs:
+      reportDir: 'reports/index.html'
+  - powershell: |
+      $EmailFrom = "$(GMAIL_USERNAME)"
+      $EmailTo = "niyazhashmi161921@gmail.com"
+      $Subject = "HTML Report from Azure Pipeline"
+      $Body = "Please find the attached HTML test report."
+      $SMTPServer = "smtp.gmail.com"
+      $SMTPPort = "587"
+      $Username = "$(GMAIL_USERNAME)"
+      $Password = "$(GMAIL_APP_PASSWORD)"
+      $htmlContent = Get-Content -Path "$(System.DefaultWorkingDirectory)/reports/summaryReport.html" -Raw
+      $message = New-Object system.net.mail.mailmessage
+      $message.from = $EmailFrom
+      $message.To.add($EmailTo)
+      $message.Subject = $Subject
+      $message.Body = $Body
+      $message.Attachments.Add($Attachment)
+      
+      $smtp = New-Object Net.Mail.SmtpClient($SMTPServer, $SMTPPort)
+      $smtp.EnableSsl = $true
+      $smtp.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
+      $smtp.Send($message)
+    displayName: 'Emailing HTML Report...'
+continueOnError: true

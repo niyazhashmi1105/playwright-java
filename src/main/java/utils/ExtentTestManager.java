@@ -18,8 +18,8 @@ public class ExtentTestManager {
         extent.flush();
     }
 
-    public static synchronized ExtentTest startTest(String testName) {
-        ExtentTest test = extent.createTest(testName);
+    public static synchronized ExtentTest startTest(String className, String testName) {
+        ExtentTest test = extent.createTest(className,testName);
         extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
         return test;
     }

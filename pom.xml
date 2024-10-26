@@ -63,7 +63,6 @@
         </dependency>
 
     </dependencies>
-
     <build>
         <plugins>
             <!-- Allure Maven Plugin for generating reports -->
@@ -107,7 +106,6 @@
                     <executions>
                         <execution>
                             <goals>
-                                <goal>java</goal>
                                 <goal>exec</goal>
                             </goals>
                         </execution>

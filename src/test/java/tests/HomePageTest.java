@@ -9,7 +9,7 @@ import utils.ConfigReader;
 @Listeners(ReportListener.class)
 public class HomePageTest  extends BaseTest {
 
-    @Test
+    @Test(priority=1)
     public void verifyIsLogoutButtonVisible(){
 
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
@@ -19,7 +19,7 @@ public class HomePageTest  extends BaseTest {
         assertUtil.assertVisible(ConfigReader.getLocator("home.btnLogout"));
     }
 
-    @Test
+    @Test(priority=2)
     public void verifyLoginPageURLAfterRedirection(){
 
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
