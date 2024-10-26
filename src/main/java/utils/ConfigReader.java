@@ -41,8 +41,7 @@ public class ConfigReader {
      * {@code playwrightConfig} property. If the file cannot be
      * found or read, an {@code ExceptionInInitializerError}
      * is thrown with an appropriate message.
-     *
-     * @throws ExceptionInInitializerError if the Playwright config
+     * "@throws ExceptionInInitializerError" if the Playwright config
      *         properties file cannot be loaded.
      */
     private void loadPlaywrightConfig(){
@@ -63,8 +62,7 @@ public class ConfigReader {
      * {@code locatorConfig} property. If the file cannot be
      * found or read, an {@code ExceptionInInitializerError}
      * is thrown with an appropriate message.
-     *
-     * @throws ExceptionInInitializerError if the locator config
+     * "@throws ExceptionInInitializerError" if the locator config
      *         properties file cannot be loaded.
      */
     private void loadLocatorConfig(){
@@ -79,8 +77,7 @@ public class ConfigReader {
 
     /**
      * Retrieves a property value from the Playwright configuration.
-     *
-     * @param key the key of the property to be retrieved.
+     * "@param key" the key of the property to be retrieved.
      * @return the value associated with the specified key, or {@code null}
      *         if the key does not exist in the properties.
      */

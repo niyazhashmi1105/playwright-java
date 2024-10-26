@@ -26,19 +26,19 @@ public class BaseTest {
      * This method is annotated with @BeforeMethod, which indicates that it will be executed
      * before each test method in the class. It performs the following tasks:
      * <ul>
-     *     <li>Creates an instance of the {@link PlaywrightFactory} to initialize the Playwright browser.</li>
-     *     <li>Initializes the browser and creates a new page using {@link PlaywrightFactory#initBrowser()}.</li>
-     *     <li>Instantiates the {@link TestUtil} class with the initialized page for utility functions.</li>
-     *     <li>Sets the current page in the {@link ReportListener} for reporting purposes.</li>
-     *     <li>Initializes instances of {@link LoginPage} and {@link HomePage} to facilitate navigation and interactions during the tests.</li>
-     *     <li>Creates an instance of {@link AssertUtil} for assertion methods to validate test outcomes.</li>
+     *     <li>Creates an instance of the {@link "PlaywrightFactory"} to initialize the Playwright browser.</li>
+     *     <li>Initializes the browser and creates a new page using {@link "PlaywrightFactory#initBrowser()"}.</li>
+     *     <li>Instantiates the {@link "TestUtil"} class with the initialized page for utility functions.</li>
+     *     <li>Sets the current page in the {@link "ReportListener"} for reporting purposes.</li>
+     *     <li>Initializes instances of {@link "LoginPage"} and {@link "HomePage"} to facilitate navigation and interactions during the tests.</li>
+     *     <li>Creates an instance of {@link "AssertUtil"} for assertion methods to validate test outcomes.</li>
      *     <li>Logs the step to Allure reporting for visibility in the generated reports.</li>
      * </ul>
      *
      * This method ensures that the necessary components are set up and ready for each test,
      * providing a clean state and preventing test interference.
      *
-     * @throws Exception If there is an error during the browser initialization or page creation.
+     * "@throws" "Exception" If there is an error during the browser initialization or page creation.
      */
     @BeforeMethod
     public void setUp(){

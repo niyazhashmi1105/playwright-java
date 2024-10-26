@@ -13,16 +13,14 @@ public class PlaywrightFactory {
 
     private Playwright playwright;
     private Browser browser;
-    private Page page;
 
     public PlaywrightFactory(){
         new ConfigReader();
     }
 
     /**
-     * Initializes the browser based on the specified configuration properties and returns a {@link Page} object.
-     *
-     * This method reads the browser configuration from a properties file using {@link ConfigReader}.
+     * Initializes the browser based on the specified configuration properties and returns a {"@link Page"} object.
+     * This method reads the browser configuration from a properties file using {"@link ConfigReader"}.
      * It supports launching the following browsers:
      * <ul>
      *     <li>Chrome</li>
@@ -32,15 +30,16 @@ public class PlaywrightFactory {
      * </ul>
      *
      * Based on the provided configuration, it launches the browser in either headless or non-headless mode
-     * and applies an optional slow-motion delay. It then navigates to the base URL and returns the corresponding {@link Page} object.
+     * and applies an optional slow-motion delay. It then navigates to the base URL and returns the corresponding {"@link Page"} object.
      *
-     * @return A {@link Page} object that can be used to interact with the web page.
+     * @return A {"@link Page"} object that can be used to interact with the web page.
      *
-     * @throws IllegalArgumentException if the provided browser type is not supported.
+     * "@throws IllegalArgumentException" if the provided browser type is not supported.
      */
 
     public Page initBrowser() {
-        String browserType = ConfigReader.getProperty("browser").toLowerCase();
+
+        String browserType = ConfigReader.getProperty("browser").toLowerCase().trim();
         boolean isHeadless = Boolean.parseBoolean(ConfigReader.getProperty("headless"));
         double slowMo = Double.parseDouble(ConfigReader.getProperty("slow.motion"));
 
@@ -59,19 +58,18 @@ public class PlaywrightFactory {
                 .orElseThrow(()-> new IllegalArgumentException("Unsupported browser: " + browserType))
                 .get();
 
-        page = browser.newPage();
+        Page page = browser.newPage();
         page.navigate(ConfigReader.getProperty("base.url"));
         return page;
     }
 
     /**
      * Closes the browser and Playwright instance to clean up resources after the tests are executed.
-     *
-     * This method ensures that both the {@link Browser} and {@link Playwright} instances are properly closed if they are initialized.
+     * This method ensures that both the {"@link Browser"} and {"@link Playwright"} instances are properly closed if they are initialized.
      * It performs the following steps:
      * <ul>
-     *     <li>If the {@link Browser} instance is not null, it closes the browser.</li>
-     *     <li>If the {@link Playwright} instance is not null, it closes the Playwright context.</li>
+     *     <li>If the {"@link Browser"} instance is not null, it closes the browser.</li>
+     *     <li>If the "{"@link Playwright"} instance is not null, it closes the Playwright context.</li>
      * </ul>
      *
      * This method should be called after tests are executed to free up system resources and avoid memory leaks.
