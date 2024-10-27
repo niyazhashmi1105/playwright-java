@@ -4,7 +4,7 @@ import base.BaseTest;
 import listeners.ReportListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import utils.ConfigReader;
+import configurator.ConfigReader;
 
 @Listeners(ReportListener.class)
 public class HomePageTest  extends BaseTest {
@@ -13,10 +13,10 @@ public class HomePageTest  extends BaseTest {
     public void verifyIsLogoutButtonVisible(){
 
         loginPage.enterCredentials("tomsmith","SuperSecretPassword!");
-        assertUtil.assertVisible(ConfigReader.getLocator("login.btnLogin"));
+        assertUtil.assertVisible(ConfigReader.getLoginBtn());
         loginPage.clickLogin();
-        testUtil.waitForElementVisible(ConfigReader.getLocator("home.btnLogout"));
-        assertUtil.assertVisible(ConfigReader.getLocator("home.btnLogout"));
+        testUtil.waitForElementVisible(ConfigReader.getLogoutBtn());
+        assertUtil.assertVisible(ConfigReader.getLogoutBtn());
     }
 
     @Test(priority=2)

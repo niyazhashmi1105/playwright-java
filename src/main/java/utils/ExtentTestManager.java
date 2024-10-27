@@ -6,14 +6,15 @@ import com.aventstack.extentreports.ExtentTest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExtentTestManager {
+public final class ExtentTestManager {
+
+    private ExtentTestManager(){}
     private final static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
     private final static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"/reports/index.html");
 
 
     /**
      * Retrieves the {@link ExtentTest} instance associated with the current thread.
-     *
      * This method is designed to fetch the current thread's test context from the
      * {@code extentTestMap}. It is synchronized to ensure thread safety when
      * multiple threads are accessing the test context simultaneously.
@@ -35,9 +36,7 @@ public class ExtentTestManager {
         return extentTestMap.get((int) (long) (Thread.currentThread().getId()));
     }
 
-    /**
-     * Finalizes and flushes the current test context to the ExtentReports output.
-     *
+    /**Finalizes and flushes the current test context to the ExtentReports output.
      * This method is responsible for ensuring that all logs, steps, and
      * information related to the current test execution are written to
      * the ExtentReports output file. It is synchronized to maintain thread
@@ -62,11 +61,9 @@ public class ExtentTestManager {
     /**
      * Initiates a new test instance in the ExtentReports framework and associates
      * it with the current thread.
-     *
      * This method creates a new {@link ExtentTest} instance using the provided
      * class name and test name. The test instance is stored in a thread-safe
      * manner, allowing for concurrent test executions to be reported correctly.
-     *
      * <p>
      * The created test instance can be used to log steps, attach screenshots,
      * and capture other relevant information during the test execution. Each

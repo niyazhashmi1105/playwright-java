@@ -1,5 +1,6 @@
 package pages;
 
+import configurator.ConfigReader;
 import utils.TestUtil;
 
 public class LoginPage {
@@ -30,11 +31,11 @@ public class LoginPage {
      *         if the elements are disabled or obscured.
      */
     public void enterCredentials(String username, String password){
-       testUtil.type("login.username",username);
-       testUtil.type("login.password",password);
+       testUtil.type(ConfigReader.getUsername(),username);
+       testUtil.type(ConfigReader.getPassword(),password);
     }
 
     public void clickLogin(){
-        testUtil.click("login.btnLogin");
+        testUtil.click(ConfigReader.getLoginBtn());
     }
 }

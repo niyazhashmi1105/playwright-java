@@ -2,6 +2,7 @@ package utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import configurator.ConfigReader;
 
 /**
  * The {@code ExtentReportManager} class is responsible for managing
@@ -9,8 +10,9 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
  * It provides methods to initialize the report settings and retrieve
  * the current report instance.
  */
-public class ExtentManager {
+public final class ExtentManager {
 
+    private ExtentManager(){}
     /**
      * Creates an instance of {@code ExtentReports} with the specified
      * report file name. Configures the report settings and system information.
@@ -33,7 +35,7 @@ public class ExtentManager {
         extent.setSystemInfo("Tester", "MD.Niyaz Hashmi");
         extent.setSystemInfo("OS Name",System.getProperty("os.name"));
         extent.setSystemInfo("OS Version",System.getProperty("os.version"));
-        extent.setSystemInfo("Browser",ConfigReader.getProperty("browser"));
+        extent.setSystemInfo("Browser", ConfigReader.getBrowser());
         return extent;
     }
 }

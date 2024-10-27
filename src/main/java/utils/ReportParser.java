@@ -13,8 +13,9 @@ import java.io.IOException;
  * an HTML test report and generate a summary report in HTML format
  * and a text file with the results of individual test cases.
  */
-public class ReportParser {
+public final class ReportParser {
 
+    private ReportParser(){}
     /**
      * Parses the HTML report located at the specified file path
      * and generates a summary report containing the total,
@@ -61,14 +62,6 @@ public class ReportParser {
                         builder.append("<td>Fail</td>");
                     }
                     builder.append("</tr>");
-
-                    // Select and iterate through the test steps (if needed)
-                    Elements steps = testCase.select("table.table.table-sm tr");
-                    for (Element step : steps) {
-                        String stepStatus = step.select("td:nth-child(1)").text();
-                        String stepDetails = step.select("td:nth-child(3)").text();
-                        // You might want to process or store step details here
-                    }
                 }
             }
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package pages;
 
+import configurator.ConfigReader;
 import utils.TestUtil;
 
 public class HomePage {
@@ -25,6 +26,6 @@ public class HomePage {
      * </p>
      */
     public void clickLogoutButton(){
-        testUtil.click("home.btnLogout");
+        testUtil.click(ConfigReader.getLogoutBtn());
     }
 }

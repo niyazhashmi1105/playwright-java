@@ -4,7 +4,7 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import utils.ConfigReader;
+import configurator.ConfigReader;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -39,9 +39,9 @@ public class PlaywrightFactory {
 
     public Page initBrowser() {
 
-        String browserType = ConfigReader.getProperty("browser").toLowerCase().trim();
-        boolean isHeadless = Boolean.parseBoolean(ConfigReader.getProperty("headless"));
-        double slowMo = Double.parseDouble(ConfigReader.getProperty("slow.motion"));
+        String browserType = ConfigReader.getBrowser();
+        boolean isHeadless = ConfigReader.isHeadless();
+        int slowMo = ConfigReader.getSlowMotion();
 
         playwright = Playwright.create();
 
@@ -59,7 +59,7 @@ public class PlaywrightFactory {
                 .get();
 
         Page page = browser.newPage();
-        page.navigate(ConfigReader.getProperty("base.url"));
+        page.navigate(ConfigReader.getURL());
         return page;
     }
 

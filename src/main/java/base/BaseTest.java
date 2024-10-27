@@ -13,7 +13,7 @@ import utils.TestUtil;
 
 public class BaseTest {
 
-    protected PlaywrightFactory playwrightFactory;
+    private PlaywrightFactory playwrightFactory;
     protected Page page;
     public TestUtil testUtil;
     public LoginPage loginPage;
@@ -22,7 +22,6 @@ public class BaseTest {
 
     /**
      * Initializes the testing environment before each test method.
-     *
      * This method is annotated with @BeforeMethod, which indicates that it will be executed
      * before each test method in the class. It performs the following tasks:
      * <ul>
@@ -37,7 +36,6 @@ public class BaseTest {
      *
      * This method ensures that the necessary components are set up and ready for each test,
      * providing a clean state and preventing test interference.
-     *
      * "@throws" "Exception" If there is an error during the browser initialization or page creation.
      */
     @BeforeMethod
@@ -54,7 +52,6 @@ public class BaseTest {
 
     /**
      * Cleans up the testing environment after each test method.
-     *
      * This method is annotated with @AfterMethod, indicating that it will be executed
      * after each test method in the class. It performs the following tasks:
      * <ul>
@@ -65,8 +62,6 @@ public class BaseTest {
      * This method ensures that all browser instances are properly closed after each test
      * execution, helping to prevent resource leaks and ensuring that tests do not
      * interfere with one another.
-     *
-     * @throws Exception If there is an error during the teardown process, such as failure to close the browser.
      */
     @AfterMethod
     public void tearDown(){

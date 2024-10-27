@@ -43,8 +43,7 @@ public class TestUtil {
      * @param locatorKey the key to retrieve the locator from the configuration.
      */
     public void click(String locatorKey){
-        String  selector = ConfigReader.getLocator(locatorKey);
-        page.click(selector);
+        page.click(locatorKey);
         Allure.step("Clicked on element: " + locatorKey);
         ExtentTestManager.getTest().log(Status.INFO,"Clicked on element: " + locatorKey);
     }
@@ -56,8 +55,7 @@ public class TestUtil {
      * @param value      the value to be typed into the input field.
      */
     public void type(String locatorKey, String value){
-        String selector = ConfigReader.getLocator(locatorKey);
-        page.fill(selector,value);
+        page.fill(locatorKey,value);
         Allure.step("Entered value '" + value + "' into field: " + locatorKey);
         ExtentTestManager.getTest().log(Status.INFO,"Entered value '" + value + "' into field: " + locatorKey);
     }
