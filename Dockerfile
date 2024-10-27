@@ -13,7 +13,7 @@ WORKDIR /app
 # Copy the pom.xml and source code
 COPY pom.xml .
 COPY src ./src
-COPY testng.xml .
+COPY runner/testng.xml .
 
 # Run the Tests
 ENTRYPOINT ["mvn", "clean", "test"]

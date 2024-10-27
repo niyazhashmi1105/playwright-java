@@ -26,6 +26,10 @@ public final class ConfigReader {
      */
     public ConfigReader() {}
 
+    public static String getEnvironment() {
+        return playwrightAppConfig.getEnv();
+    }
+
     public static String getBrowser() {
         return playwrightAppConfig.browser();
     }

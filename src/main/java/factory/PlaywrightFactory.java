@@ -39,6 +39,7 @@ public class PlaywrightFactory {
 
     public Page initBrowser() {
 
+        String environment = ConfigReader.getEnvironment();
         String browserType = ConfigReader.getBrowser();
         boolean isHeadless = ConfigReader.isHeadless();
         int slowMo = ConfigReader.getSlowMotion();
