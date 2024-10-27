@@ -1,0 +1,21 @@
+trigger:
+  - main
+schedules:
+  - cron: "0 0 * * 4"
+    displayName: Daily Midnight Run
+    branches:
+      include:
+        - main
+    always: true
+
+variables:
+  - group: GithubVariablesGroup
+
+steps:
+  - script: |
+      curl -X POST \
+        -H "Authorization: token $(GITHUB_TOKEN)" \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/niyazhashmi1105/playwright-java/actions/workflows/ci.yml/dispatches \
+        -d '{"ref":"main"}'
+    displayName: 'Trigger GitHub Action'
