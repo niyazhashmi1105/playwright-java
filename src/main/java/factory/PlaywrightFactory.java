@@ -40,7 +40,11 @@ public class PlaywrightFactory {
     public Page initBrowser() {
 
         String environment = ConfigReader.getEnvironment();
+        System.out.println("Environment: "+ environment);
+        String baseUrl =  ConfigReader.getURL();
+        System.out.println("BaseUrl: "+ baseUrl);
         String browserType = ConfigReader.getBrowser();
+        System.out.println("Browser Name: "+browserType);
         boolean isHeadless = ConfigReader.isHeadless();
         int slowMo = ConfigReader.getSlowMotion();
 
@@ -58,9 +62,8 @@ public class PlaywrightFactory {
                 .findFirst()
                 .orElseThrow(()-> new IllegalArgumentException("Unsupported browser: " + browserType))
                 .get();
-
         Page page = browser.newPage();
-        page.navigate(ConfigReader.getURL());
+        page.navigate(baseUrl);
         return page;
     }
 

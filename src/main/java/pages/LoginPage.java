@@ -1,19 +1,19 @@
 package pages;
 
 import configurator.ConfigReader;
-import utils.TestUtil;
+import utils.ElementActionUtils;
 
 public class LoginPage {
 
-    private final TestUtil testUtil;
+    private final ElementActionUtils testUtil;
 
-    public LoginPage(TestUtil testUtil){
+    public LoginPage(ElementActionUtils testUtil){
         this.testUtil = testUtil;
     }
 
     /**
      * Enters the provided username and password into the login form.
-     * This method utilizes the {@link TestUtil} class to fill in the
+     * This method utilizes the {@link ElementActionUtils} class to fill in the
      * username and password fields on the login page. The input fields
      * are identified by the locator keys "login.username" and "login.password",
      * respectively. After calling this method, the login credentials will be

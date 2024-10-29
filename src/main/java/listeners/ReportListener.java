@@ -176,7 +176,7 @@ public class ReportListener implements ITestListener, IExecutionListener {
         attachLogs("All tests finished:");
         ExtentTestManager.endTest();
         openExtentReport("reports/index.html");
-        openExtentReport("reports/summaryReport.html");
+        //openExtentReport("reports/summaryReport.html");
 }
     @Step("{0}")
     public String attachLogs(String message) {

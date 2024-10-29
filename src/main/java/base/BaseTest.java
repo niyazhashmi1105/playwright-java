@@ -6,19 +6,22 @@ import io.qameta.allure.Allure;
 import listeners.ReportListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import pages.DataDrivenPage;
 import pages.HomePage;
 import pages.LoginPage;
-import utils.AssertUtil;
-import utils.TestUtil;
+import utils.AssertUtils;
+import utils.ElementActionUtils;
 
 public class BaseTest {
 
     private PlaywrightFactory playwrightFactory;
     protected Page page;
-    public TestUtil testUtil;
+    public ElementActionUtils testUtil;
     public LoginPage loginPage;
-    public AssertUtil assertUtil;
+    public AssertUtils assertUtil;
     public HomePage homePage;
+    public DataDrivenPage dataDrivenPage;
 
     /**
      * Initializes the testing environment before each test method.
@@ -38,15 +41,18 @@ public class BaseTest {
      * providing a clean state and preventing test interference.
      * "@throws" "Exception" If there is an error during the browser initialization or page creation.
      */
+
     @BeforeMethod
     public void setUp(){
+
         playwrightFactory = new PlaywrightFactory();
         page = playwrightFactory.initBrowser();
-        testUtil = new TestUtil(page);
+        testUtil = new ElementActionUtils(page);
         ReportListener.setPage(page);
         loginPage = new LoginPage(testUtil);
         homePage = new HomePage(testUtil);
-        assertUtil = new AssertUtil(page);
+        dataDrivenPage = new DataDrivenPage(testUtil);
+        assertUtil = new AssertUtils(page);
         Allure.step("Browser launched and page initialized");
     }
 

@@ -1,20 +1,19 @@
 package pages;
 
 import configurator.ConfigReader;
-import utils.TestUtil;
+import utils.ElementActionUtils;
 
 public class HomePage {
 
-    private final TestUtil testUtil;
+    private final ElementActionUtils testUtil;
 
-    public HomePage(TestUtil testUtil){
+    public HomePage(ElementActionUtils testUtil){
         this.testUtil = testUtil;
-
     }
 
     /**
      * Clicks the logout button on the home page.
-     * This method utilizes the {@link TestUtil} class to perform a click action
+     * This method utilizes the {@link ElementActionUtils} class to perform a click action
      * on the logout button identified by the locator key "home.btnLogout".
      * This action effectively logs the user out of the application,
      * returning them to the login screen or the initial landing page.

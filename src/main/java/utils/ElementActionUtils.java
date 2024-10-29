@@ -14,7 +14,7 @@ import java.util.Base64;
  * It includes methods for handling alerts, clicking elements,
  * typing text, waiting for elements, and capturing screenshots.
  */
-public class TestUtil {
+public class ElementActionUtils {
 
     private final Page page;
 
@@ -23,7 +23,7 @@ public class TestUtil {
      *
      * @param page the {@link Page} object used for interacting with web elements.
      */
-    public TestUtil(Page page) {
+    public ElementActionUtils(Page page) {
         this.page = page;
     }
 

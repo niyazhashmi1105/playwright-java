@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name= "Playwright Automation Suite" parallel="classes" thread-count="4">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<suite name="Playwright Automation Suite" parallel="classes" thread-count="4">
+        
     <listeners>
         <listener class-name="listeners.ReportListener"/>
     </listeners>
+        
     <test name="Playwright Regression Test">
         <classes>
             <class name="tests.LoginPageTest">
@@ -12,6 +13,7 @@
                     <include name="verifyInvalidPageTitleOnSuccessfulLogin"/>
                 </methods>
             </class>
+                        
             <class name="tests.HomePageTest">
                 <methods>
                     <include name="verifyIsLogoutButtonVisible"/>

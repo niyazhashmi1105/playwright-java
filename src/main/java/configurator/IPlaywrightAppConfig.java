@@ -4,16 +4,13 @@ import org.aeonbits.owner.Config;
 @Config.Sources("file:${user.dir}/src/main/resources/env/${env}/config.properties")
 public interface IPlaywrightAppConfig extends Config {
 
-    @Key("environment")
-    @DefaultValue("qa")
+    @Key("env")
     String getEnv();
 
     @Key("browser")
-    @DefaultValue("chrome")
     String browser();
 
     @Key("base.url")
-    @DefaultValue("https://the-internet.herokuapp.com/login")
     String baseUrl();
 
     @Key("headless")
@@ -23,6 +20,4 @@ public interface IPlaywrightAppConfig extends Config {
     @Key("slow.motion")
     @DefaultValue("150")
     int slowMotion();
-
-
 }

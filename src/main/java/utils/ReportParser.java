@@ -26,13 +26,14 @@ public final class ReportParser {
     public static void parseHTMLReport(String filePath) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("<h1>Test Results Summary</h1>");
-        builder.append("<br>");
-        builder.append("<table border='1'><tr><th>Test Case Name</th><th>Test Case Status</th></tr>");
+        builder.append(" <h1> Test Results Summary </h1> ");
+        builder.append(" <br> ");
+        builder.append(" <table border='1'><tr><th> Test Case Name </th><th> Test Case Status </th></tr> ");
 
         int totalTestCasesCount = 0;
         int passedTestCasesCount = 0;
         int failedTestCasesCount = 0;
+        int skippedTestCasesCount = 0;
 
         try {
             File input = new File(filePath);
@@ -47,19 +48,24 @@ public final class ReportParser {
                 // Loop through each test case
                 for (Element testCase : testCases) {
                     String testName = testCase.select("p.name").text();
-                    String status = testCase.select("span.badge.pass-bg.log.float-right").text();
+                    String status = testCase.select("span.badge").text();
 
                     // Append the test case details to the table
                     builder.append("<tr><td>").append(testName).append("</td>");
 
                     if (status.equalsIgnoreCase("Pass")) {
                         passedTestCasesCount++;
-                        writer.write("Test Case: " + testName + " - Status: " + status + "\n");
+                        writer.write(" Test Case: " + testName + " - Status: " + status + "\n");
                         builder.append("<td>").append(status).append("</td>");
-                    } else {
+                    } else if(status.equalsIgnoreCase("Fail")) {
                         failedTestCasesCount++;
-                        writer.write("Test Case: " + testName + " - Status: Fail\n");
+                        writer.write(" Test Case: " + testName + " - Status: Fail\n");
                         builder.append("<td>Fail</td>");
+                    }
+                    else if(status.equalsIgnoreCase("Skip")){
+                        skippedTestCasesCount++;
+                        writer.write(" Test Case: " + testName + " - Status: Skip\n");
+                        builder.append("<td>Skip</td>");
                     }
                     builder.append("</tr>");
                 }
@@ -72,9 +78,10 @@ public final class ReportParser {
         builder.append("</table>");
 
         // Update summary with actual counts at the top
-        String summary = "<br><strong>Total Tests:</strong> " + totalTestCasesCount +
-                ", <strong>Passed Tests:</strong> " + passedTestCasesCount +
-                ", <strong>Failed Tests:</strong> " + failedTestCasesCount;
+        String summary = "<br> <strong> Total Tests: </strong> " + totalTestCasesCount +
+                ", <strong> Passed Tests:</strong> " + passedTestCasesCount +
+                ", <strong> Failed Tests:</strong> " + failedTestCasesCount+
+                ", <strong> Skipped Tests:</strong> " + skippedTestCasesCount;
         builder.insert(builder.indexOf("<br>") + 4, summary);
 
         // Write the summary report

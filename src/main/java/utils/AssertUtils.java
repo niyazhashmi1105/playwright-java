@@ -6,11 +6,11 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-public class AssertUtil {
+public class AssertUtils {
 
     private final Page page;
 
-    public AssertUtil(Page page){
+    public AssertUtils(Page page){
         this.page = page;
     }
 

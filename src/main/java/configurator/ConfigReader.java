@@ -12,7 +12,8 @@ import org.aeonbits.owner.ConfigFactory;
  * and it provides static methods to retrieve specific properties or locators
  * by their keys.
  */
-public final class ConfigReader {
+
+public class ConfigReader {
 
     private static final IPlaywrightAppConfig playwrightAppConfig = ConfigFactory.create(IPlaywrightAppConfig.class);
     private static final ILocatorConfig locatorsConfig = ConfigFactory.create(ILocatorConfig.class);
@@ -68,5 +69,8 @@ public final class ConfigReader {
 
     public static String getHomePageTitle() {
         return locatorsConfig.homePageTitle();
+    }
+    public static String getSearchText() {
+        return locatorsConfig.googleTextArea();
     }
 }

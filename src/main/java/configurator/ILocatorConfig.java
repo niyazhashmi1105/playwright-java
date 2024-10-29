@@ -22,4 +22,7 @@ public interface ILocatorConfig extends Config {
 
     @Key("home.pageTitle")
     String homePageTitle();
+
+    @Key("google.textarea")
+    String googleTextArea();
 }
