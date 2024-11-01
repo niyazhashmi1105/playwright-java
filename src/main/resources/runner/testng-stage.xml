@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name= "JDBC Test Suite">
+    <listeners>
+        <listener class-name="listeners.ReportListener"/>
+    </listeners>
+    <test name="JDBC Test">
+        <classes>
+            <class name="tests.JDBITest">
+                <methods>
+                    <include name="verifyAllColumnDataJDBITest"/>
+                    <include name="verifySingleColumnDataJDBITest"/>
+                    <include name="verifySingleColumnDataUsingConditionJDBITest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

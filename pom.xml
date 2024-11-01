@@ -27,6 +27,9 @@
         <owner.aeonbits.version>1.0.12</owner.aeonbits.version>
         <zerocell.core.version>0.5.1</zerocell.core.version>
         <lombok.version>1.18.34</lombok.version>
+        <jdbi.version>3.47.0</jdbi.version>
+        <mysql.version>9.1.0</mysql.version>
+        <checkstyle.version>3.6.0</checkstyle.version>
     </properties>
     <dependencies>
         <dependency>
@@ -86,6 +89,16 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-core</artifactId>
+            <version>${jdbi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -125,30 +138,22 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>${checkstyle.version}</version>
+            <configuration>
+                <consoleOutput>true</consoleOutput>
+                <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                <failOnViolation>true</failOnViolation>
+                <failsOnError>true</failsOnError>
+                <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                <suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
+                <suppressionsFileExpression>suppressions.xml</suppressionsFileExpression>
+            </configuration>
+            </plugin>
         </plugins>
     </build>
-            <!--            <plugin>-->
-            <!--                <groupId>com.puppycrawl.tools</groupId>-->
-            <!--                <artifactId>checkstyle</artifactId>-->
-            <!--                <version>10.18.2</version>-->
-            <!--                <configuration>-->
-            <!--                    <configLocation>checkstyle.xml</configLocation>-->
-            <!--                    <failsOnError>true</failsOnError>-->
-            <!--                    <encoding>UTF-8</encoding>-->
-            <!--                    <consoleOutput>true</consoleOutput>-->
-            <!--                    <linkXRef>false</linkXRef>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>validate</id>-->
-            <!--                        <phase>validate</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>check</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
-
     <profiles>
     <profile>
         <id>dev</id>
@@ -162,15 +167,14 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src/main/resources/runner/testng_dd.xml</suiteXmlFile>
+                            <suiteXmlFile>src/main/resources/runner/testng-dev.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>
             </plugins>
         </build>
     </profile>
-
-    <profile>
+        <profile>
         <id>qa</id>
         <properties>
             <env>qa</env>
@@ -182,7 +186,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>src/main/resources/runner/testng.xml</suiteXmlFile>
+                            <suiteXmlFile>src/main/resources/runner/testng-qa.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>
@@ -201,7 +205,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/main/resources/runner/testng.xml</suiteXmlFile>
+                                <suiteXmlFile>src/main/resources/runner/testng-stage.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>

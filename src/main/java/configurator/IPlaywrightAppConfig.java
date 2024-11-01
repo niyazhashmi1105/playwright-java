@@ -1,7 +1,7 @@
 package configurator;
 import org.aeonbits.owner.Config;
 
-@Config.Sources("file:${user.dir}/src/main/resources/env/${env}/config.properties")
+@Config.Sources("file:${user.dir}/src/main/resources/env/${env}/${env}-config.properties")
 public interface IPlaywrightAppConfig extends Config {
 
     @Key("env")
