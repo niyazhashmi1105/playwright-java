@@ -57,7 +57,18 @@ public class ElementActionUtils {
     public void type(String locatorKey, String value){
         page.fill(locatorKey,value);
         Allure.step("Entered value '" + value + "' into field: " + locatorKey);
-        ExtentTestManager.getTest().log(Status.INFO,"Entered value '" + value + "' into field: " + locatorKey);
+        if(locatorKey.contains("password")){
+            try {
+                String encryptedPassword = EncryptionUtil.encrypt(value);
+                Allure.step("Entered value into field: " + locatorKey);
+                ExtentTestManager.getTest().log(Status.INFO, "Entered value into field: " + locatorKey);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            ExtentTestManager.getTest().log(Status.INFO, "Entered value '" + value + "' into field: " + locatorKey);
+        }
     }
 
     /**
