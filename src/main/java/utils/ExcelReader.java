@@ -12,14 +12,16 @@ public final class ExcelReader {
     private static List<TestDataUtils> testData = null;
 
     static {
-        testData = Reader.of(TestDataUtils.class)
-                .from(new File(System.getProperty("user.dir") + "/src/main/resources/testdata/excel.xlsx"))
-                .sheet("Sheet0")
-                .skipHeaderRow(true)
-                .list();
+
     }
 
-    public static List<TestDataUtils> getTestData() {
-        return ExcelReader.testData;
+    public static List<TestDataUtils> getTestData(String filePath, String sheetName) {
+
+        testData = Reader.of(TestDataUtils.class)
+                .from(new File(System.getProperty("user.dir") + filePath))
+                .sheet(sheetName)
+                .skipHeaderRow(true)
+                .list();
+        return testData;
     }
 }

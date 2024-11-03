@@ -13,14 +13,12 @@ public class DataDrivenTest extends BaseTest {
 
     @Test(dataProvider = "excelData")
     public void dataDrivenTest(TestDataUtils testData){
-
-
         dataDrivenPage.searchQuery(testData.getUsername());
     }
 
     @DataProvider(name = "excelData")
     public Iterator<Object[]> provideTestData() {
-        List<TestDataUtils> testDataList = ExcelReader.getTestData();
+        List<TestDataUtils> testDataList = ExcelReader.getTestData("/src/main/resources/testdata/excel.xlsx","Sheet0");
         return testDataList.stream()
                             .map(data -> new Object[]{data})
                             .iterator();

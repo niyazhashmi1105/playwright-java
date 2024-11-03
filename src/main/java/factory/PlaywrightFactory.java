@@ -1,9 +1,6 @@
 package factory;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.*;
 import configurator.ConfigReader;
 
 import java.util.Map;
@@ -13,8 +10,10 @@ public class PlaywrightFactory {
 
     private Playwright playwright;
     private Browser browser;
+    private BrowserContext context;
+    private Page page;
 
-    public PlaywrightFactory(){
+    public PlaywrightFactory() {
         new ConfigReader();
     }
 
@@ -28,41 +27,42 @@ public class PlaywrightFactory {
      *     <li>Webkit (Safari)</li>
      *     <li>Microsoft Edge</li>
      * </ul>
-     *
+     * <p>
      * Based on the provided configuration, it launches the browser in either headless or non-headless mode
      * and applies an optional slow-motion delay. It then navigates to the base URL and returns the corresponding {"@link Page"} object.
      *
      * @return A {"@link Page"} object that can be used to interact with the web page.
-     *
+     * <p>
      * "@throws IllegalArgumentException" if the provided browser type is not supported.
      */
 
     public Page initBrowser() {
 
         String environment = ConfigReader.getEnvironment();
-        System.out.println("Environment: "+ environment);
-        String baseUrl =  ConfigReader.getURL();
-        System.out.println("BaseUrl: "+ baseUrl);
+        System.out.println("Environment: " + environment);
+        String baseUrl = ConfigReader.getURL();
+        System.out.println("BaseUrl: " + baseUrl);
         String browserType = ConfigReader.getBrowser();
-        System.out.println("Browser Name: "+browserType);
+        System.out.println("Browser Name: " + browserType);
         boolean isHeadless = ConfigReader.isHeadless();
         int slowMo = ConfigReader.getSlowMotion();
 
         playwright = Playwright.create();
 
         Map<String, Supplier<Browser>> browserMap = Map.of(
-                "chrome",() -> playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
-                "firefox",() -> playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
-                "webkit",() -> playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
-                "edge",() -> playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(isHeadless).setSlowMo(slowMo))
+                "chrome", () -> playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
+                "firefox", () -> playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
+                "webkit", () -> playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
+                "edge", () -> playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(isHeadless).setSlowMo(slowMo))
         );
         browser = browserMap.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(browserType.toLowerCase().trim()))
                 .map(Map.Entry::getValue)
                 .findFirst()
-                .orElseThrow(()-> new IllegalArgumentException("Unsupported browser: " + browserType))
+                .orElseThrow(() -> new IllegalArgumentException("Unsupported browser: " + browserType))
                 .get();
-        Page page = browser.newPage();
+        context = browser.newContext();
+        page = context.newPage();
         page.navigate(baseUrl);
         return page;
     }
@@ -75,17 +75,16 @@ public class PlaywrightFactory {
      *     <li>If the {"@link Browser"} instance is not null, it closes the browser.</li>
      *     <li>If the "{"@link Playwright"} instance is not null, it closes the Playwright context.</li>
      * </ul>
-     *
+     * <p>
      * This method should be called after tests are executed to free up system resources and avoid memory leaks.
      */
-    
-    public void tearDown(){
 
-        if (browser != null) {
-            browser.close();
-        }
-        if(playwright != null){
-            playwright.close();
-        }
+    public void tearDown() {
+
+        if (page != null) page.close();
+        if (context != null) context.close();
+        if (browser != null) browser.close();
+        if (playwright != null) playwright.close();
     }
+
 }

@@ -17,6 +17,7 @@ public class TestDataUtils {
     public String getPassword() {
         return this.password;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }

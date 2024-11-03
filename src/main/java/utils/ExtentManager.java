@@ -12,30 +12,44 @@ import configurator.ConfigReader;
  */
 public final class ExtentManager {
 
-    private ExtentManager(){}
+    private ExtentManager() {
+    }
+
+    private static ExtentReports extent;
+
     /**
      * Creates an instance of {@code ExtentReports} with the specified
      * report file name. Configures the report settings and system information.
      *
      * @param fileName the name of the file where the report will be generated.
      * @return an instance of {@code ExtentReports} configured with the
-     *         specified report name, document title, and system information.
+     * specified report name, document title, and system information.
      */
     public static ExtentReports createInstance(String fileName) {
 
-        // Configure the report location and file
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(fileName);
-        sparkReporter.config().setReportName("Automation Test Report");
-        sparkReporter.config().setDocumentTitle("Extent Report");
+        if (extent == null) {
+            synchronized (ExtentManager.class) {
+                // Configure the report location and file
+                ExtentSparkReporter sparkReporter = new ExtentSparkReporter(fileName);
+                sparkReporter.config().setReportName("Playwright Automation Test Report");
+                sparkReporter.config().setDocumentTitle("Extent Report");
+                sparkReporter.config().setTimeStampFormat("MMM dd, yyyy HH:mm:ss");
 
-        ExtentReports extent = new ExtentReports();
-        extent.attachReporter(sparkReporter);
+                //sparkReporter.setAppendExisting(true);
+                extent = new ExtentReports();
+                extent.attachReporter(sparkReporter);
 
-        extent.setSystemInfo("Environment", "QA");
-        extent.setSystemInfo("Tester", "MD.Niyaz Hashmi");
-        extent.setSystemInfo("OS Name",System.getProperty("os.name"));
-        extent.setSystemInfo("OS Version",System.getProperty("os.version"));
-        extent.setSystemInfo("Browser", ConfigReader.getBrowser());
+                extent.setSystemInfo("Environment", ConfigReader.getEnvironment());
+                extent.setSystemInfo("URL", ConfigReader.getURL());
+                extent.setSystemInfo("OS Name", System.getProperty("os.name"));
+                extent.setSystemInfo("OS Version", System.getProperty("os.version"));
+                extent.setSystemInfo("Browser", ConfigReader.getBrowser());
+                extent.setSystemInfo("Headless", String.valueOf((Boolean)ConfigReader.isHeadless()));
+
+            }
+        }
         return extent;
     }
+
 }
+
