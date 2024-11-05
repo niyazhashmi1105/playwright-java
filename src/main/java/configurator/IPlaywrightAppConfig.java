@@ -44,4 +44,7 @@ public interface IPlaywrightAppConfig extends Config {
     @DefaultValue("Playwright-Build")
     String buildName();
 
+    @Key("browserstack.device")
+    String device();
+
 }

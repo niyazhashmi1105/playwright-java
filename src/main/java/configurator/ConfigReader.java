@@ -102,4 +102,8 @@ public class ConfigReader {
         return playwrightAppConfig.buildName();
     }
 
+    public static String getDeviceName(){
+        return playwrightAppConfig.device();
+    }
+
 }

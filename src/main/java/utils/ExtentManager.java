@@ -43,7 +43,9 @@ public final class ExtentManager {
                 extent.setSystemInfo("URL", ConfigReader.getURL());
                 extent.setSystemInfo("OS Name", System.getProperty("os.name"));
                 extent.setSystemInfo("OS Version", System.getProperty("os.version"));
+                extent.setSystemInfo("OS Architecture", System.getProperty("os.arch"));
                 extent.setSystemInfo("Browser", ConfigReader.getBrowser());
+                extent.setSystemInfo("Browser Version", ConfigReader.getBrowserVersion());
                 extent.setSystemInfo("Headless", String.valueOf((Boolean)ConfigReader.isHeadless()));
 
             }
