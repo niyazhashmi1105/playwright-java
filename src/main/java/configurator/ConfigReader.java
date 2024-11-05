@@ -73,4 +73,33 @@ public class ConfigReader {
     public static String getSearchText() {
         return locatorsConfig.googleTextArea();
     }
+
+    public static String getBrowserStackUserName(){
+        return playwrightAppConfig.browserStackUsername();
+    }
+
+    public static String getBrowserStackAccessKey(){
+        return playwrightAppConfig.browserStackAccessKey();
+    }
+
+    public static String getBrowserVersion(){
+        return playwrightAppConfig.browserVersion();
+    }
+
+    public static String getOS(){
+        return playwrightAppConfig.os();
+    }
+
+    public static String getOSVersion(){
+        return playwrightAppConfig.osVersion();
+    }
+
+    public static String getBSProjectName(){
+        return playwrightAppConfig.projectName();
+    }
+
+    public static String getBSBuildName(){
+        return playwrightAppConfig.buildName();
+    }
+
 }

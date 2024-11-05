@@ -20,4 +20,28 @@ public interface IPlaywrightAppConfig extends Config {
     @Key("slow.motion")
     @DefaultValue("150")
     int slowMotion();
+
+    @Key("browserstack.username")
+    String browserStackUsername();
+
+    @Key("browserstack.accessKey")
+    String browserStackAccessKey();
+
+    @Key("browserstack.browserVersion")
+    String browserVersion();
+
+    @Key("browserstack.os")
+    String os();
+
+    @Key("browserstack.osVersion")
+    String osVersion();
+
+    @Key("browserstack.projectName")
+    @DefaultValue("Playwright-Java")
+    String projectName();
+
+    @Key("browserstack.buildName")
+    @DefaultValue("Playwright-Build")
+    String buildName();
+
 }

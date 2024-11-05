@@ -2,7 +2,11 @@ package factory;
 
 import com.microsoft.playwright.*;
 import configurator.ConfigReader;
+import org.json.JSONObject;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -12,6 +16,8 @@ public class PlaywrightFactory {
     private Browser browser;
     private BrowserContext context;
     private Page page;
+    private final String browserStackUsername = "mdniyazhashmi_h1Ux6p";
+    private final String browserStackAccessKey = "iTE5EC6uHJzsupUwszRC";
 
     public PlaywrightFactory() {
         new ConfigReader();
@@ -53,7 +59,8 @@ public class PlaywrightFactory {
                 "chrome", () -> playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
                 "firefox", () -> playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
                 "webkit", () -> playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless).setSlowMo(slowMo)),
-                "edge", () -> playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(isHeadless).setSlowMo(slowMo))
+                "edge", () -> playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(isHeadless).setSlowMo(slowMo)),
+                "browserstack",this::connectToBrowserStack
         );
         browser = browserMap.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(browserType.toLowerCase().trim()))
@@ -85,6 +92,31 @@ public class PlaywrightFactory {
         if (context != null) context.close();
         if (browser != null) browser.close();
         if (playwright != null) playwright.close();
+    }
+
+    private Browser connectToBrowserStack() {
+        try {
+            // BrowserStack capabilities
+            Map<String, String> capabilities = new HashMap<>();
+            capabilities.put("browser", "chrome");
+            capabilities.put("browser_version", ConfigReader.getBrowserVersion());
+            capabilities.put("os", ConfigReader.getOS());
+            capabilities.put("os_version", ConfigReader.getOSVersion());
+            capabilities.put("name", ConfigReader.getBSProjectName());
+            capabilities.put("build", ConfigReader.getBSBuildName());
+
+            // Construct the BrowserStack connection URL
+            String browserstackUrl = String.format(
+            "wss://%s:%s@cdp.browserstack.com/playwright?caps=%s",
+                   ConfigReader.getBrowserStackUserName(),
+                    ConfigReader.getBrowserStackAccessKey(),
+                    URLEncoder.encode(new JSONObject(capabilities).toString(), StandardCharsets.UTF_8));
+
+            // Connect to BrowserStack using the URL
+            return playwright.chromium().connect(browserstackUrl);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to BrowserStack", e);
+        }
     }
 
 }
