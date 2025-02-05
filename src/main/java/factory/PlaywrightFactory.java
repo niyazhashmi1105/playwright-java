@@ -152,7 +152,6 @@ public class PlaywrightFactory {
                     URLEncoder.encode(new JSONObject(capabilities).toString(), StandardCharsets.UTF_8)
             );
 
-            System.out.println(browserstackUrl);
             // Connect to BrowserStack using the URL
             return playwright.chromium().connect(browserstackUrl);
         } catch (Exception e) {

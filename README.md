@@ -57,6 +57,13 @@ Run tests using TestNG:
 mvn test
 View Test Reports: Open reports/index.html in a web browser to view the detailed test results.
 
+Extent Report
+Open up the default Extent Report on the browser
+
+Allure Report
+It will be generated inside target directory with allure-results folder
+Execute mvn allure:serve on the commandline it will open allure html report on the browser
+
 Running Tests in Docker
 To run the tests in a Docker container:
 Build the Docker image:
@@ -64,6 +71,7 @@ docker build -t playwright-java .
 
 Run the container using Docker Compose:
 docker-compose up
+docker-compose down
 
 CI/CD with Jenkins
 The Jenkinsfile defines the CI/CD pipeline. If using Jenkins, configure your project to run tests automatically whenever changes are pushed to the repository.
